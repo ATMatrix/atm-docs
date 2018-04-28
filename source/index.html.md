@@ -13,6 +13,7 @@ includes:
   - introduction
   - quickstart
   - system_design
+  - chinb_js_reference
 
 search: true
 ---
