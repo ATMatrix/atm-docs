@@ -131,6 +131,7 @@ chinb.accounts.getBalance("0x407d73d8a49eeb85d32cf465507dd71d507100c1")
 Parameter | Default | Description
 --------- | ------- | -----------
 address | null | user public key
+defaultBlock | "latest" | If you pass this parameter it will not use the default block set with defaultBlock.
 
 ## chinb.accounts.transfer
 
@@ -249,3 +250,10 @@ chinb.institue.recover("0x407d73d8a49eeb85d32cf465507dd71d507100c1")
 ```
 true
 ```
+
+
+### Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+address | null | recorver user public key
