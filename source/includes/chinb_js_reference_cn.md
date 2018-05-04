@@ -234,7 +234,7 @@ msg | null | 授权的信息
 
 ## chinb.institue.recover
 
-```chinb.institue.recover(address)```
+    ```chinb.institue.recover(address)```
 
 恢复账户
 
