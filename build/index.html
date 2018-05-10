@@ -221,6 +221,17 @@
       <div id="toc" class="toc-list-h1">
           <li>
             <a href="#5ea2e0cde2" class="toc-h1 toc-link" data-title="">简介</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#feb91e9a34" class="toc-h2 toc-link" data-title="">词汇表</a>
+                  </li>
+                  <li>
+                    <a href="#590e1eb286" class="toc-h2 toc-link" data-title="">系统架构图</a>
+                  </li>
+                  <li>
+                    <a href="#bb3cb157dd" class="toc-h2 toc-link" data-title="">业务流程</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#7e5c7347ab" class="toc-h1 toc-link" data-title="">快速起步</a>
@@ -321,10 +332,50 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='5ea2e0cde2'>简介</h1>
-<p>This is system introduction.</p>
+<p>CHINB是一个基于ATMATRIX区块链技术构建的行业联盟链系统，由多个授权节点组成的一个点对点网络，通过授权节点开放的API对外提供服务，联盟内各个节点互联，进行数据同步和共识交换确认。</p>
 
-<p>This documentation can be visited at https://chinb.atmatrix.org</p>
-<h1 id='7e5c7347ab'>快速起步</h1><h2 id='5f83e7f6a1'>基础</h2><h2 id='f9fc4e5203'>节点部署</h2><h2 id='09d316b965'>流程</h2><h2 id='f2fa87cfdc'>代码构成</h2><h2 id='30fd4ed55b'>示例</h2><h1 id='4236857abb'>系统设计</h1><h2 id='095b4a5107'>代币设计</h2><h2 id='3bffba42a3'>流程图</h2><h2 id='kyc'>KYC</h2><h2 id='13c8064d1a'>智能合约</h2><h2 id='token'>token合约</h2>
+<p>在行业联盟内，授权成员可以运行共识节点，参与联盟内数据共识机制。并通过共识节点查询、广播业务交易信息，由其他成员同步，共同维护统一的账簿，即统一的全局数据状态。</p>
+
+<p>ATMATRIX提供一组软件工具及基础设施，供成员机构使用。成员单位与审查代码的权利和义务，并在共识规则更新时即时配合升级相应的软件系统。</p>
+<h2 id='feb91e9a34'>词汇表</h2>
+<p>联盟链：联盟链是区块链的一种形式，与公有链相比，共识参与方从任何人进化到联盟组织内部的成员节点，即进过授权方可参与共识机制。相较于公有链，性能及效率更高。</p>
+
+<p>共识节点：Blockchain Node或Consensus Node，运行了共识节点软件的一台或一组服务器，与其他共识节点组成P2P网络，基于公共网域或私有网络。</p>
+
+<p>智能合约：是有一组业务逻辑和规则构成的确定性代码程序，部署在联盟链上，由各个共识节点储存及执行。</p>
+
+<p>积分：系统的的奖励及消费计价单位，可在系统内自由流转。用户完成任务或特定操作，由机构发放奖励积分；用户可使用积分在机构处兑换服务。</p>
+
+<p><em>本文档在线访问地址 https://chinb.atmatrix.org。</em></p>
+<h2 id='590e1eb286'>系统架构图</h2>
+<p>系统中，有多种角色。</p>
+
+<ul>
+<li><p>用户：终端用户，比如病人、医生。他们是服务的使用者。</p></li>
+<li><p>机构：联盟成员单位，通过运行一个共识节点与其他成员共同维护一个全局的数据账簿。他们通过面向用户的客户端应用以及服务器端业务逻辑与用户交互，并将关键信息通过CHINB API Service向联盟链广播。</p></li>
+<li><p>ATMATRIX：提供运行和维护联盟链的软件工具。</p></li>
+</ul>
+
+<p><img src="images/infrastructure.png" alt="系统架构图" /></p>
+
+<p style="text-align:center"><a href="images/infrastructure.png" target="_blank">点击查看大图</a></p>
+
+<p>如图，终端用户通过手机或者云访问方式，访问客户端应用，客户端应用由机构根据机构业务特点进行开发，表现形式不限，比如可能是一个微信公众号，H5页面，安卓或者IOS的手机APP等等。客户端应用传统上与运行在机构服务器上的后端系统进行交互，往往配合有一个中心化的数据库。一般的操作和传统的架构并无区别，只是在一些操作需要将信息记录到全局数据账簿时，需要与联盟链进行交互。</p>
+
+<p>CHINB API Service是一个中间服务，它将与区块链节点进行交互的操作进行了标准化，隐藏了区块链领域知识，提供REST API接口供后端系统使用，这样后端系统开发者可以在无需深度了解区块链技术实现的情况下，可以通过该接口服务进行操作。</p>
+
+<p>当然，如图所示，    Blockchain Node本质上也提供RPC服务，机构后端系统也可以跳过CHINB API服务直接与其交互，毕竟，CHINB API服务只是为了简化操作而存在。</p>
+
+<p>Blockchain Node要求运行在公网上，它需要与其他机构运行的对等节点构建P2P网络完成数据交换和共识确认。</p>
+
+<p>机构服务端程序、CHINB API服务和Blockchain Node由机构运行和维护。</p>
+<h2 id='bb3cb157dd'>业务流程</h2>
+<p>CHINB作为通用基础架构，架构和业务逻辑相对稳定。特定行业的业务流程则通过智能合约来实现。</p>
+<h3 id='c16824449c'>身份标识</h3>
+<p>在区块链系统中，用户的标识由一对公私钥构成，公钥可以公开，也成为用户的地址，向用户发送积分时即为向用户的地址发送积分。私钥由用户自行保管，不可公开。获得私钥即获得了该私钥对应的公钥中资产的处置权。</p>
+
+<p>TODO：描述身份标识生成过程</p>
+<h3 id='kyc-know-your-customer'>实名认证KYC（Know Your Customer）</h3><h3 id='63cc0a8537'>积分奖励</h3><h3 id='5d6c96fe08'>数据授权</h3><h1 id='7e5c7347ab'>快速起步</h1><h2 id='5f83e7f6a1'>基础</h2><h2 id='f9fc4e5203'>节点部署</h2><h2 id='09d316b965'>流程</h2><h2 id='f2fa87cfdc'>代码构成</h2><h2 id='30fd4ed55b'>示例</h2><h1 id='4236857abb'>系统设计</h1><h2 id='095b4a5107'>代币设计</h2><h2 id='3bffba42a3'>流程图</h2><h2 id='kyc'>KYC</h2><h2 id='13c8064d1a'>智能合约</h2><h2 id='token'>token合约</h2>
 <p>机构和用户使用的代币合约</p>
 <pre class="highlight plaintext"><code>Contract ChinbToken is DSToken, ERC223, Controlled {
   function getBalance(address) {}
