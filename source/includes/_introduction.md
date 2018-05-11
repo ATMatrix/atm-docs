@@ -43,6 +43,14 @@ Blockchain Node要求运行在公网上，它需要与其他机构运行的对�
 
 ## 业务流程
 
+![整体结构图](images/panorama.png)
+
+<p style="text-align:center"><a href="images/panorama.png" target="_blank">整体结构图</a></p>
+
+![业务流程图](images/flow.png)
+
+<p style="text-align:center"><a href="images/flow.png" target="_blank">业务流程图</a></p>
+
 CHINB作为通用基础架构，架构和业务逻辑相对稳定。特定行业的业务流程则通过智能合约来实现。
 
 ### 身份标识
