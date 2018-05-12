@@ -1,21 +1,5 @@
 # 机构侧 API
 
-## 安装
-
-该 [Node.js](https://nodejs.org/en/) 模块在 [npm registry](https://www.npmjs.com/) 上注册.
-
-在安装之前，请确保[下载并安装 Node.js](https://nodejs.org/en/download/)。
-
-安装使用以下 npm install 命令完成：
-
-```$ npm install -g chinb```
-
-<aside class="success">
-Node.js的版本确保在8.x以上
-</aside>
-
-##
-
 ## info
 
 获取机构信息。
