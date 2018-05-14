@@ -14,7 +14,7 @@
 
 ```
 contract ChinbToken is DSToken, ERC223 {
-  function getBalance(address) {}
+  function balanceOf(address) {}
 
   function transfer(address des, uint value) {}
 
