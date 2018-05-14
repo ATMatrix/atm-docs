@@ -114,7 +114,7 @@ contract MultiSigConfirm is DSAuth{
         auth
         returns (uint transactionId){}
 
-   function confirmTransaction(uint transactionId){}
+  function confirmTransaction(uint transactionId){}
 
 
   function recover isConfirmed(uint transactionId){
