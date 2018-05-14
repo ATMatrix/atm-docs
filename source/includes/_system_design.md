@@ -14,7 +14,7 @@
 
 ```
 contract ChinbToken is DSToken, ERC223 {
-  function getBalance(address) {}
+  function balanceOf(address) {}
 
   function transfer(address des, uint value) {}
 
@@ -23,6 +23,7 @@ contract ChinbToken is DSToken, ERC223 {
   function mint() auth {}
 
   function burn() auth {}
+
 }
 ```
 
@@ -35,6 +36,11 @@ contract Institution is DSAuth{
 
   mapping(bytes32 => address) public institution;
   mapping(address => mapping(bytes32 => bytes32)) public user;
+  //get all users' address by insId
+  mapping(bytes32 => address[]) public insUsers;
+
+  //userId => userAddresses
+  mapping(bytes32 => address[]) public userIdToAddresses;
 
   function addInstitution(
         address _insAddress, 
@@ -59,7 +65,19 @@ contract Institution is DSAuth{
   function deleteUser(
         address _user,
         bytes32 _idno,
-        bytes32 _insId)
+        bytes32 _insId){}
+
+  function getInsUsers(bytes32 _insId)
+        public 
+        returns(address[] _insUsersTemp)
+    {
+    }
+
+  function getAddressByUserId(bytes32 _idno)
+        public
+        returns(address[] _userAddressesTemp)
+    {
+    }
 
 }
 ```
