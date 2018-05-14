@@ -228,25 +228,25 @@ pw | null | 账户的密码
 data | null | 指定授权的信息
 
 
-## chinb.Institude
+## chinb.institud
 
 ```chinb.Institue``` 包含了验证授权信息和恢复用户账户的功能。
 
 
 ```javascript
-const Institude = require('chinb').Institude;
+const institud = require('chinb').institud;
 const priveteKey = "XXXXXXX";   //机构账户密钥
-const institude = new Institude(privateKey);
+const institud = new institud(privateKey);
 ```
 
-## Institude.getInfo
+## institud.getInfo
 
-```Institude.getInfo()```
+```institud.getInfo()```
 
 查询机构信息
 
 ```javascript
-const info = institude.getInfo();
+const info = institud.getInfo();
 console.log(info);
 ```
 
@@ -259,14 +259,14 @@ console.log(info);
 }
 ```
 
-## Institude.getTokens
+## institud.getTokens
 
-```Institude.getTokens(addr)```
+```institud.getTokens(addr)```
 
 查询给定地址的token余额
 
 ```javascript
-const tokens = institude.getTokens("0x407d73d8a49eeb85d32cf465507dd71d507100c4");
+const tokens = institud.getTokens("0x407d73d8a49eeb85d32cf465507dd71d507100c4");
 console.log(tokens);
 ```
 > 返回 ```info``` 如下:
@@ -281,14 +281,14 @@ console.log(tokens);
 --------- | ------- | -----------
 addr | null | 需要查询余额的地址
 
-## Institude.transfer
+## institud.transfer
 
-```Institude.transfer(to, tokens, callback)```
+```institud.transfer(to, tokens, callback)```
 
 机构发送 `tokens` 数量的代币到 `to` 账户地址。
 
 ```javascript
-institude.transfer("0x2222222222222222222222222222222222222222", 100, function(err, res){
+institud.transfer("0x2222222222222222222222222222222222222222", 100, function(err, res){
     if(!err){
         console.log(res);
     }
@@ -321,14 +321,14 @@ to | null | token接收者帐号地址
 tokens | null | 需要转账token的数量
 callback | null | 回调函数
 
-## Institude.register
+## institud.register
 
-```Institude.register(addr, id, callback)```
+```institud.register(addr, id, callback)```
 
 机构在链上注册经过KYC的用户。
 
 ```javascript
-institude.register("0x2222222222222222222222222222222222222222", '111111', function(err, res){
+institud.register("0x2222222222222222222222222222222222222222", '111111', function(err, res){
     if(!err){
         console.log(res);
     }
@@ -361,14 +361,14 @@ addr | null | 用户账户地址
 id | null | 用户身份信息
 callback | null | 回调函数
 
-## Institude.del
+## institud.del
 
-```Institude.del(addr, callback)```
+```institud.del(addr, callback)```
 
 机构在链上删除用户信息。
 
 ```javascript
-institude.del("0x2222222222222222222222222222222222222222", function(err, res){
+institud.del("0x2222222222222222222222222222222222222222", function(err, res){
     if(!err){
         console.log(res);
     }
@@ -400,14 +400,14 @@ institude.del("0x2222222222222222222222222222222222222222", function(err, res){
 addr | null | 用户账户地址
 callback | null | 回调函数
 
-## Institude.update
+## institud.update
 
-```Institude.update(addr_old, addr_new, callback)```
+```institud.update(addr_old, addr_new, callback)```
 
 机构在链上更新用户信息。
 
 ```javascript
-institude.register("0x2222222222222222222222222222222222222222", '0x1111111111111111111111111111111111', function(err, res){
+institud.register("0x2222222222222222222222222222222222222222", '0x1111111111111111111111111111111111', function(err, res){
     if(!err){
         console.log(res);
     }
@@ -440,9 +440,9 @@ addr_old | null | 用户更新前账户地址
 addr_new | null | 用户更新后账户地址
 callback | null | 回调函数
 
-## Institude.recover
+## institud.recover
 
-```Institude.recover(addr_old, addr_new, callback)```
+```institud.recover(addr_old, addr_new, callback)```
 
 机构恢复用户信息。
 
@@ -451,7 +451,7 @@ callback | null | 回调函数
 </aside>
 
 ```javascript
-institude.recover("0x2222222222222222222222222222222222222222", '0x1111111111111111111111111111111111', function(err, res){
+institud.recover("0x2222222222222222222222222222222222222222", '0x1111111111111111111111111111111111', function(err, res){
     if(!err){
         console.log(res);
     }
@@ -484,7 +484,7 @@ addr_old | null | 用户恢复前账户地址
 addr_new | null | 用户恢复后账户地址
 callback | null | 回调函数
 
-## Institude.verify
+## institud.verify
 
 ```institue.verify(addr, sign, callback)```
 
