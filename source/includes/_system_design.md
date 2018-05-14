@@ -39,9 +39,8 @@ contract Institution is DSAuth{
   //get all users' address by insId
   mapping(bytes32 => address[]) public insUsers;
 
-  mapping(address => bytes32) public userAddressToInsId;
-
-  mapping(bytes32 => bytes32) public userIdToInsId;
+  //userId => userAddresses
+  mapping(bytes32 => address[]) public userIdToAddresses;
 
   function addInstitution(
         address _insAddress, 
@@ -68,10 +67,17 @@ contract Institution is DSAuth{
         bytes32 _idno,
         bytes32 _insId){}
 
-  function getInsUsersLength(bytes32 _insId)
+  function getInsUsers(bytes32 _insId)
         public 
-        view
-        returns(uint){}
+        returns(address[] _insUsersTemp)
+    {
+    }
+
+  function getAddressByUserId(bytes32 _idno)
+        public
+        returns(address[] _userAddressesTemp)
+    {
+    }
 
 }
 ```
