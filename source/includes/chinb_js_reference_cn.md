@@ -133,8 +133,11 @@ addr | null | 用户账户地址
 在指定块上查询用户的所有账户余额。
 
 ```javascript
-let tokens = account.getTokens("111111111111111");
-console.log(tokens);
+account.getTokens("111111111111111", function(err, tokens){
+    if(!err){
+        console.log(tokens)
+    }
+});
 ```
 
 > 返回 ```tokens``` 如下
