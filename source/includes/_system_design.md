@@ -39,6 +39,10 @@ contract Institution is DSAuth{
   //get all users' address by insId
   mapping(bytes32 => address[]) public insUsers;
 
+  mapping(address => bytes32) public userAddressToInsId;
+
+  mapping(bytes32 => bytes32) public userIdToInsId;
+
   function addInstitution(
         address _insAddress, 
         bytes32 _insId
