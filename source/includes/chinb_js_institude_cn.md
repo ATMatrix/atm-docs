@@ -166,47 +166,6 @@ curl "http://localhost:3000/api/user"
 --------- | ------- | -----------
 addr | null | 需要删除的用户帐号地址
 
-
-## user_update
-
-在链上更新已经注册的用户信息
-
-```shell
-curl "http://localhost:3000/api/user"
-  -X PUT
-  -H "Content-type: application/json"
-  -d "{\"addr_old\": \"0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa03\", \"addr_new\": \"0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa04\"}"
-```
-
-> 返回的```receipt```数据结构如下:
-
-```json
-{
-  "status": true,
-  "transactionHash": "0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b",
-  "transactionIndex": 0,
-  "blockHash": "0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46",
-  "blockNumber": 3,
-  "contractAddress": "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe",
-  "cumulativeGasUsed": 314159,
-  "gasUsed": 30234,
-  "logs": [{
-         // logs as returned by getPastLogs, etc.
-     }, ...]
-}
-```
-
-### HTTP 请求
-
-```PUT http://localhost:3000/api/user {addr_old: 0x02, addr_new: 0x03}```
-
-### 请求体参数
-
-参数 | 默认值 | 描述
---------- | ------- | -----------
-addr_old | null | 用户更新前的账户地址
-addr_new | null | 用户更新后的账户地址
-
 ## recover
 
 为经过KYC的用户恢复账户
