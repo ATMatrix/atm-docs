@@ -102,13 +102,16 @@ pw | null | 在客户端保存私钥之前，用作加密生成的私钥的密�
 
 ## Account.getInfo
 
-```Account.getInfo(addr)```
+```Account.getInfo(addr,id)```
 
 查询用户信息
 
 ```javascript
-let info = account.getInfo("0x407d73d8a49eeb85d32cf465507dd71d507100c1");
-console.log(info);
+let info = account.getInfo("0x407d73d8a49eeb85d32cf465507dd71d507100c1",'10001', function(err, info){
+    if (!err) {
+        console.log(info);
+    }
+});
 ```
 
 > 返回 ```info``` 如下
@@ -125,10 +128,11 @@ console.log(info);
 参数 | 默认值 | 描述
 --------- | ------- | -----------
 addr | null | 用户账户地址
+id | null | 用户身份信息
 
 ## Account.getTokens
 
-```Account.getTokens(id [, defaultBlock])```
+```Account.getTokens(id ,callback)```
 
 在指定块上查询用户的所有账户余额。
 
@@ -154,7 +158,6 @@ account.getTokens("111111111111111", function(err, tokens){
 参数 | 默认值 | 描述
 --------- | ------- | -----------
 id | null | 用户省份信息
-defaultBlock | "latest" | 如果设置该参数会覆盖掉默认指定块
 
 ## Account.transfer
 
