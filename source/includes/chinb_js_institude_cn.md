@@ -39,7 +39,7 @@ curl "http://localhost:3000/api/tokens/0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa0
 
 ### HTTP 请求
 
-```GET http://localhost:3000/api/token/<addr>```
+```GET http://localhost:3000/api/tokens/<addr>```
 
 ### URL 参数表
 

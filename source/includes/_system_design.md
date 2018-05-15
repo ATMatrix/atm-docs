@@ -79,6 +79,14 @@ contract Institution is DSAuth{
     {
     }
 
+  function saveDataFromSignedMessage(bytes signature, bytes message, address userAddress) 
+        public 
+        pure 
+        returns (bool) {
+        require(signature.length == 65){}
+
+  
+
 }
 ```
 
