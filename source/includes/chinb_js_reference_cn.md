@@ -212,10 +212,12 @@ let sign = account.authorize("111111111111111", "test", "Some data");
 console.log(sign);
 ```
 
-> 返回 ```sign``` 如下:
+> 返回 ```signObject``` 如下:
 
 ```
 {
+    addr: '0x2222222222222222222222222222222222222222',     //用户公钥地址
+    id: '111111111111111',                                  //用户身份信息
     message: 'Some data',
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1c',

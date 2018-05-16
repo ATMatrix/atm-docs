@@ -214,7 +214,7 @@ addr_new | null | 用户恢复后的账户地址
 curl "http://localhost:3000/api/verify"
   -X POST
   -H "Content-type: application/json"
-  -d "{\"message\": \"Some data\", \"messageHash\": \"0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655\", \"v\": \"0x1c\", \"r\": \"0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd\", \"s\": \"0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029\", \"signature\": \"Some 0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c\"}"
+  -d "{\"addr\":\"0x2222222222222222222222222222222222222222\",\"id\":\"11111\", \"message\": \"Some data\", \"messageHash\": \"0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655\", \"v\": \"0x1c\", \"r\": \"0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd\", \"s\": \"0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029\", \"signature\": \"Some 0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c\"}"
 ```
 
 > 返回的```receipt```数据结构如下:
