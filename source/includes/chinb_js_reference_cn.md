@@ -208,8 +208,11 @@ callback | null | 回调函数
 授权给定的数据信息。
 
 ```javascript
-let sign = account.authorize("111111111111111", "test", "Some data");
-console.log(sign);
+let sign = account.authorize("111111111111111", "test", "Some data", function(err, sign){
+    if(!err){
+        console.log(sign);
+    }
+});
 ```
 
 > 返回 ```signObject``` 如下:
