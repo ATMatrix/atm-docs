@@ -197,7 +197,7 @@ curl "http://localhost:3000/api/recover"
 
 ### HTTP 请求
 
-```POST http://localhost:3000/api/user {addr_old: 0x02, addr_new: 0x03}```
+```POST http://localhost:3000/api/recover {addr_old: 0x02, addr_new: 0x03}```
 
 ### 请求体参数
 
