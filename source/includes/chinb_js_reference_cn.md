@@ -8,7 +8,7 @@
 
 安装使用以下 npm install 命令完成：
 
-```$ npm install chinb```
+```$ npm install chinb-js```
 
 ## 介绍
 
