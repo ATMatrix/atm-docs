@@ -245,6 +245,33 @@ curl "http://localhost:3000/api/verify"
 --------- | ------- | -----------
 signObject | null | 用户授权签名的签名对象
 
+## gas 
+
+查询账户燃料余量
+
+```shell
+curl "http://localhost:3000/api/gas/0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa02"
+```
+
+> 返回的JSON数据结构如下:
+
+```json
+{
+    "ATN": "100"  //账户燃料余量
+}
+```
+
+### HTTP 请求
+
+```GET http://localhost:3000/api/gas/<addr>```
+
+### URL 参数表
+
+参数 | 默认值 | 描述
+--------- | ------- | -----------
+addr | null | 需要查询的帐号地址
+
+
 ## 错误
 
 机构侧 API 应用以下错误编码:

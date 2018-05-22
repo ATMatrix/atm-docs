@@ -36,7 +36,7 @@ chinb.js 对象是一个容纳所有 Chinb 相关模块的伞包。
 const chinb = require('chinb');
 
 > chinb.Account
-> chinb.Institue
+> chinb.Institud
 > chinb.Validator
 > chinb.version
 ```
@@ -203,7 +203,7 @@ callback | null | 回调函数
 
 ## Account.authorize
 
-```chinb.accounts.authorize(id, pw, data)```
+```Account.authorize(id, pw, data, callback)```
 
 授权给定的数据信息。
 
@@ -238,10 +238,37 @@ id | null | 用户的身份信息
 pw | null | 账户的密码
 data | null | 指定授权的信息
 
+## Account.getATN
+
+```Account.getATN(id, pw, callback)```
+
+查询燃料余量。
+
+```javascript
+let gas = account.getATN("111111111111111", "test", function(err, gas){
+    if(!err){
+        console.log(gas);
+    }
+});
+```
+
+> 返回 ```gas``` 如下:
+
+```
+BigNumber { s: 1, e: 1, c: [ 10 ] }    //10
+```
+
+### 参数表
+
+参数 | 默认值 | 描述
+--------- | ------- | -----------
+id | null | 用户的身份信息
+pw | null | 账户的密码
+callback | null | 回调函数 
 
 ## chinb.institud
 
-```chinb.Institue``` 包含了验证授权信息和恢复用户账户的功能。
+```chinb.Institud``` 包含了验证授权信息和恢复用户账户的功能。
 
 
 ```javascript
@@ -457,12 +484,12 @@ callback | null | 回调函数
 
 ## institud.verify
 
-```institue.verify(addr, sign, callback)```
+```institud.verify(addr, sign, callback)```
 
 验证授权的信息
 
 ```javascript
-institue.verify("0x407d73d8a49eeb85d32cf465507dd71d507100c1", {
+institud.verify("0x407d73d8a49eeb85d32cf465507dd71d507100c1", {
     message: 'Some data',
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1c',
@@ -499,3 +526,32 @@ institue.verify("0x407d73d8a49eeb85d32cf465507dd71d507100c1", {
 --------- | ------- | -----------
 address | null | 授权的账户地址
 sign | null | 授权的签名对象
+
+## institud.getATN
+
+```institud.getATN(addr, callback)```
+
+查询燃料余额。
+
+```javascript
+let gas = account.getATN("0x01", function(err, gas){
+    if(!err){
+        console.log(gas);
+    }
+});
+```
+
+> 返回 ```gas``` 如下:
+
+```
+BigNumber { s: 1, e: 1, c: [ 10 ] }    //10
+```
+
+### 参数表
+
+参数 | 默认值 | 描述
+--------- | ------- | -----------
+addr | null | 查询的账户地址 
+callback | null | 回调函数 
+
+
