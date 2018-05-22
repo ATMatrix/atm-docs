@@ -148,8 +148,8 @@ account.getTokens("111111111111111", function(err, tokens){
 
 ```json
 {
-    "0x407d73d8a49eeb85d32cf465507dd71d507100c1": "50",
-    "0x407d73d8a49eeb85d32cf465507dd71d507100c2": "50"
+    "0x407d73d8a49eeb85d32cf465507dd71d507100c1": "BigNumber { s: 1, e: 1, c: [ 10 ] }",  //10
+    "0x407d73d8a49eeb85d32cf465507dd71d507100c2": "BigNumber { s: 1, e: 1, c: [ 10 ] }"   //10
 }
 ```
 
@@ -310,7 +310,7 @@ console.log(tokens);
 > 返回 ```info``` 如下:
 
 ```
-"1000000"
+BigNumber { s: 1, e: 1, c: [ 10 ] }  //10
 ```
 
 ### 参数表
