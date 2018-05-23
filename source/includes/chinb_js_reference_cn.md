@@ -17,7 +17,7 @@ chinb.js 是一个库的集合，它使用 HTTP 或者 IPC 连接与Chinb节点�
 使用示例:
 
 ```javascript
-const chinb = require('chinb');
+const chinb = require('chinb-js');
 const account = new chinb.Account();
 let id = '123';
 let pw = 'test'
@@ -33,7 +33,7 @@ Node.js的版本确保在8.x以上
 chinb.js 对象是一个容纳所有 Chinb 相关模块的伞包。
 
 ```
-const chinb = require('chinb');
+const chinb = require('chinb-js');
 
 > chinb.Account
 > chinb.Institud
@@ -46,7 +46,7 @@ const chinb = require('chinb');
 
 
 ```javascript
-const Account = require('chinb').Account;
+const Account = require('chinb-js').Account;
 const account = new Accout();
 ```
 
@@ -272,7 +272,7 @@ callback | null | 回调函数
 
 
 ```javascript
-const institud = require('chinb').institud;
+const institud = require('chinb-js').institud;
 const priveteKey = "XXXXXXX";   //机构账户密钥
 const institud = new institud(privateKey);
 ```
@@ -442,7 +442,7 @@ callback | null | 回调函数
 
 ```institud.recover(addr_old, addr_new, callback)```
 
-机构恢复用户信息。
+机构将add_old余额恢复到add_new地址账号。
 
 <aside class="warning">
 帐号恢复属于敏感操作，请确认KYC后操作！
