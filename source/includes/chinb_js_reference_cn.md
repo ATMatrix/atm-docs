@@ -221,7 +221,7 @@ let sign = account.authorize("111111111111111", "test", "Some data", function(er
 {
     addr: '0x2222222222222222222222222222222222222222',     //用户公钥地址
     id: '111111111111111',                                  //用户身份信息
-    message: 'Some data',
+    message: 'Some data',                                   //用户授权的信息
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1c',
     r: '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd',
@@ -484,13 +484,15 @@ callback | null | 回调函数
 
 ## institud.verify
 
-```institud.verify(addr, sign, callback)```
+```institud.verify(signObject, callback)```
 
 验证授权的信息
 
 ```javascript
 institud.verify("0x407d73d8a49eeb85d32cf465507dd71d507100c1", {
-    message: 'Some data',
+    addr: '0x02',                  //用户公钥地址
+    id: '1000000001',              //用户身份信息
+    message: 'Some data',          //用户授权的信息
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1c',
     r: '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd',
