@@ -2,7 +2,6 @@
 title: CHINB API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - javascript
   - shell   
 
 toc_footers:
@@ -12,8 +11,7 @@ includes:
   - introduction
   - quickstart
   - system_design
-  - chinb_js_institude_cn
-  - chinb_js_reference_cn
+  - json_rpc
 
 search: true
 ---

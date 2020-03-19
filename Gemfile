@@ -1,5 +1,5 @@
 ruby '>=2.3.1'
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
 
 # Middleman
 gem 'middleman', '~>4.2.1'
