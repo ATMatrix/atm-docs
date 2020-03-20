@@ -1,6 +1,6 @@
-# CHINB Consortium Blockchain Documentation
+# Atmatrix Consortium Blockchain Documentation
 
-This is documentation repo for CHINB Consortium Blockchain.
+This is documentation repo for Atmatrix Consortium Blockchain.
 
 # How to write docs using slate
 

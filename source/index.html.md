@@ -1,5 +1,5 @@
 ---
-title: CHINB API Reference
+title: ATM API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell   
@@ -10,7 +10,6 @@ toc_footers:
 includes:
   - introduction
   - quickstart
-  - system_design
   - json_rpc
 
 search: true
