@@ -1,0 +1,632 @@
+<h1 id='chinb-js'>chinb.js 参考</h1><h2 id='087db63ab1'>安装</h2>
+<p>该 <a href="https://nodejs.org/en/">Node.js</a> 模块在 <a href="https://www.npmjs.com/">npm registry</a> 上注册.</p>
+
+<p>在安装之前，请确保<a href="https://nodejs.org/en/download/">下载并安装 Node.js</a>。</p>
+
+<p>安装使用以下 npm install 命令完成：</p>
+
+<p><code>$ npm install chinb-js</code></p>
+<h2 id='45fa4e00db'>介绍</h2>
+<p>chinb.js 是一个库的集合，它使用 HTTP 或者 IPC 连接与Chinb节点交互，</p>
+
+<p>使用示例:</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">chinb</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'chinb-js'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chinb</span><span class="p">.</span><span class="nx">Account</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="s1">'123'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">pw</span> <span class="o">=</span> <span class="s1">'test'</span>
+<span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">account</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">pw</span><span class="p">);</span>
+</code></pre>
+<aside class="success">
+Node.js的版本确保在8.x以上
+</aside>
+<h2 id='chinb'>chinb</h2>
+<p>chinb.js 对象是一个容纳所有 Chinb 相关模块的伞包。</p>
+<pre class="highlight plaintext"><code>const chinb = require('chinb-js');
+
+&gt; chinb.Account
+&gt; chinb.Institud
+&gt; chinb.Validator
+&gt; chinb.version
+</code></pre><h2 id='chinb-account'>chinb.Account</h2>
+<p><code>chinb.Account</code> 包含生成 Chinb 帐号和授权数据的功能。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">Account</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'chinb-js'</span><span class="p">).</span><span class="nx">Account</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Accout</span><span class="p">();</span>
+</code></pre>
+<aside class="warning">
+Account 模块仅可在浏览器端使用！
+</aside>
+<h2 id='account-create'>Account.create</h2>
+<p><code>Account.create(id, pw)</code></p>
+
+<p>生成带有私钥和公钥的账户对象。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">account</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">"111111111111111"</span><span class="p">,</span> <span class="s1">'test'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>返回的<code>keystore</code>数据结构如下:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>{
+    version: 3,
+    id: '04e9bcbb-96fa-497b-94d1-14df4cd20af6',             //keystore id
+    address: '2c7536e3605d9c16a7a3d7b1898e529396a65c23',            // 用户公钥地址
+    crypto: {
+        ciphertext: 'a1c25da3ecde4e6a24f3697251dd15d6208520efc84ad97397e906e6df24d251',
+        cipherparams: { iv: '2885df2b63f7ef247d753c82fa20038a' },
+        cipher: 'aes-128-ctr',
+        kdf: 'scrypt',
+        kdfparams: {
+            dklen: 32,
+            salt: '4531b3c174cc3ff32a6a7a85d6761b410db674807b2d216d022318ceee50be10',
+            n: 262144,
+            r: 8,
+            p: 1
+        },
+        mac: 'b8b010fff37f9ae5559a352a185e86f9b9c1d7f7a9f1bd4e82a5dd35468fc7f6'
+    }
+}
+</code></pre>
+<aside class="warning">
+请确保私钥仅保存在客户端！
+</aside>
+<h3 id='3fe069830a'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户身份验证信息</td>
+</tr>
+<tr>
+<td>pw</td>
+<td>null</td>
+<td>在客户端保存私钥之前，用作加密生成的私钥的密码</td>
+</tr>
+</tbody></table>
+<h2 id='account-getinfo'>Account.getInfo</h2><pre class="highlight plaintext"><code>
+查询用户信息
+
+```javascript
+let info = account.getInfo("0x407d73d8a49eeb85d32cf465507dd71d507100c1",'10001', function(err, info){
+    if (!err) {
+        console.log(info);
+    }
+});
+</code></pre>
+<blockquote>
+<p>返回 <code>info</code> 如下</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">     </span><span class="err">//id</span><span class="w"> </span><span class="err">hash值</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x407d73d8a49eeb85d32cf465507dd71d507100c1"</span><span class="p">,</span><span class="w">            </span><span class="err">//用户地址</span><span class="w">
+    </span><span class="s2">"insNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CHINB1"</span><span class="w">       </span><span class="err">//机构编号</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr</td>
+<td>null</td>
+<td>用户账户地址</td>
+</tr>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户身份信息</td>
+</tr>
+</tbody></table>
+<h2 id='account-gettokens'>Account.getTokens</h2>
+<p><code>Account.getTokens(id ,callback)</code></p>
+
+<p>在指定块上查询用户的所有账户余额。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">account</span><span class="p">.</span><span class="nx">getTokens</span><span class="p">(</span><span class="s2">"111111111111111"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">tokens</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tokens</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>tokens</code> 如下</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"0x407d73d8a49eeb85d32cf465507dd71d507100c1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BigNumber { s: 1, e: 1, c: [ 10 ] }"</span><span class="p">,</span><span class="w">  </span><span class="err">//</span><span class="mi">10</span><span class="w">
+    </span><span class="s2">"0x407d73d8a49eeb85d32cf465507dd71d507100c2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BigNumber { s: 1, e: 1, c: [ 10 ] }"</span><span class="w">   </span><span class="err">//</span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-2'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户省份信息</td>
+</tr>
+</tbody></table>
+<h2 id='account-transfer'>Account.transfer</h2>
+<p><code>Account.transfer(id, pw, to, tokens, callback)</code></p>
+
+<p>用户发送 <code>tokens</code> 数量的代币到 <code>to</code> 账户地址。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">account</span><span class="p">.</span><span class="nx">transfer</span><span class="p">(</span><span class="s2">"111111111111111"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="s2">"0x2222222222222222222222222222222222222222"</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">                                                                            </span><span class="err">//交易状态</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">  </span><span class="err">//交易hash</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">                                                                    </span><span class="err">//交易索引</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">        </span><span class="err">//块hash</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">                                                                     </span><span class="err">//块高</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">                  </span><span class="err">//合约地址</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">                                                      
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">                                             
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-3'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>转账用户的身份信息</td>
+</tr>
+<tr>
+<td>pw</td>
+<td>null</td>
+<td>转账用户的密码</td>
+</tr>
+<tr>
+<td>to</td>
+<td>null</td>
+<td>token接收者帐号地址</td>
+</tr>
+<tr>
+<td>tokens</td>
+<td>null</td>
+<td>需要转账token的数量</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='account-authorize'>Account.authorize</h2>
+<p><code>Account.authorize(id, pw, data, callback)</code></p>
+
+<p>授权给定的数据信息。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">account</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s2">"111111111111111"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="s2">"Some data"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">sign</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sign</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>signObject</code> 如下:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>{
+    addr: '0x2222222222222222222222222222222222222222',     //用户公钥地址
+    id: '111111111111111',                                  //用户身份信息
+    message: 'Some data',                                   //用户授权的信息
+    messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
+    v: '0x1c',
+    r: '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd',
+    s: '0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029',
+    signature: '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c'
+}
+</code></pre><h3 id='3fe069830a-4'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户的身份信息</td>
+</tr>
+<tr>
+<td>pw</td>
+<td>null</td>
+<td>账户的密码</td>
+</tr>
+<tr>
+<td>data</td>
+<td>null</td>
+<td>指定授权的信息</td>
+</tr>
+</tbody></table>
+<h2 id='account-getatn'>Account.getATN</h2>
+<p><code>Account.getATN(id, pw, callback)</code></p>
+
+<p>查询燃料余量。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">gas</span> <span class="o">=</span> <span class="nx">account</span><span class="p">.</span><span class="nx">getATN</span><span class="p">(</span><span class="s2">"111111111111111"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">gas</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">gas</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>gas</code> 如下:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>BigNumber { s: 1, e: 1, c: [ 10 ] }    //10
+</code></pre><h3 id='3fe069830a-5'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户的身份信息</td>
+</tr>
+<tr>
+<td>pw</td>
+<td>null</td>
+<td>账户的密码</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='chinb-institud'>chinb.institud</h2>
+<p><code>chinb.Institud</code> 包含了验证授权信息和恢复用户账户的功能。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">institud</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'chinb-js'</span><span class="p">).</span><span class="nx">institud</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">priveteKey</span> <span class="o">=</span> <span class="s2">"XXXXXXX"</span><span class="p">;</span>   <span class="c1">//机构账户密钥</span>
+<span class="kr">const</span> <span class="nx">institud</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">institud</span><span class="p">(</span><span class="nx">privateKey</span><span class="p">);</span>
+</code></pre><h2 id='institud-getinfo'>institud.getInfo</h2><pre class="highlight plaintext"><code>
+查询机构信息
+
+```javascript
+const info = institud.getInfo();
+console.log(info);
+</code></pre>
+<blockquote>
+<p>返回 <code>info</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"addr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x407d73d8a49eeb85d32cf465507dd71d507100c4"</span><span class="p">,</span><span class="w"> </span><span class="err">//机构帐号地址</span><span class="w">
+    </span><span class="s2">"insNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CHINB1"</span><span class="w"> </span><span class="err">//机构编号</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='institud-gettokens'>institud.getTokens</h2><pre class="highlight plaintext"><code>
+查询给定地址的token余额
+
+```javascript
+const tokens = institud.getTokens("0x407d73d8a49eeb85d32cf465507dd71d507100c4");
+console.log(tokens);
+</code></pre>
+<blockquote>
+<p>返回 <code>info</code> 如下:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>BigNumber { s: 1, e: 1, c: [ 10 ] }  //10
+</code></pre><h3 id='3fe069830a-6'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr</td>
+<td>null</td>
+<td>需要查询余额的地址</td>
+</tr>
+</tbody></table>
+<h2 id='institud-transfer'>institud.transfer</h2>
+<p><code>institud.transfer(to, tokens, callback)</code></p>
+
+<p>机构发送 <code>tokens</code> 数量的代币到 <code>to</code> 账户地址。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">institud</span><span class="p">.</span><span class="nx">transfer</span><span class="p">(</span><span class="s2">"0x2222222222222222222222222222222222222222"</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-7'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>to</td>
+<td>null</td>
+<td>token接收者帐号地址</td>
+</tr>
+<tr>
+<td>tokens</td>
+<td>null</td>
+<td>需要转账token的数量</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='institud-register'>institud.register</h2>
+<p><code>institud.register(addr, id, callback)</code></p>
+
+<p>机构在链上注册经过KYC的用户。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">institud</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">"0x2222222222222222222222222222222222222222"</span><span class="p">,</span> <span class="s1">'111111'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-8'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr</td>
+<td>null</td>
+<td>用户账户地址</td>
+</tr>
+<tr>
+<td>id</td>
+<td>null</td>
+<td>用户身份信息</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='institud-del'>institud.del</h2>
+<p><code>institud.del(addr, callback)</code></p>
+
+<p>机构在链上删除用户信息。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">institud</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s2">"0x2222222222222222222222222222222222222222"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-9'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr</td>
+<td>null</td>
+<td>用户账户地址</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='institud-recover'>institud.recover</h2>
+<p><code>institud.recover(addr_old, addr_new, callback)</code></p>
+
+<p>机构将add_old余额恢复到add_new地址账号。</p>
+
+<aside class="warning">
+帐号恢复属于敏感操作，请确认KYC后操作！
+</aside>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">institud</span><span class="p">.</span><span class="nx">recover</span><span class="p">(</span><span class="s2">"0x2222222222222222222222222222222222222222"</span><span class="p">,</span> <span class="s1">'0x1111111111111111111111111111111111'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-10'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr_old</td>
+<td>null</td>
+<td>用户恢复前账户地址</td>
+</tr>
+<tr>
+<td>addr_new</td>
+<td>null</td>
+<td>用户恢复后账户地址</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
+<h2 id='institud-verify'>institud.verify</h2>
+<p><code>institud.verify(signObject, callback)</code></p>
+
+<p>验证授权的信息</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">institud</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="s2">"0x407d73d8a49eeb85d32cf465507dd71d507100c1"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">addr</span><span class="p">:</span> <span class="s1">'0x02'</span><span class="p">,</span>                  <span class="c1">//用户公钥地址</span>
+    <span class="na">id</span><span class="p">:</span> <span class="s1">'1000000001'</span><span class="p">,</span>              <span class="c1">//用户身份信息</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s1">'Some data'</span><span class="p">,</span>          <span class="c1">//用户授权的信息</span>
+    <span class="na">messageHash</span><span class="p">:</span> <span class="s1">'0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655'</span><span class="p">,</span>
+    <span class="na">v</span><span class="p">:</span> <span class="s1">'0x1c'</span><span class="p">,</span>
+    <span class="na">r</span><span class="p">:</span> <span class="s1">'0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd'</span><span class="p">,</span>
+    <span class="na">s</span><span class="p">:</span> <span class="s1">'0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029'</span><span class="p">,</span>
+    <span class="na">signature</span><span class="p">:</span> <span class="s1">'0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c'</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>receipt</code> 如下:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transactionIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cumulativeGasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">314159</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gasUsed"</span><span class="p">:</span><span class="w"> </span><span class="mi">30234</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"logs"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+         </span><span class="err">//</span><span class="w"> </span><span class="err">logs</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">returned</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">getPastLogs</span><span class="p">,</span><span class="w"> </span><span class="err">etc.</span><span class="w">
+     </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='3fe069830a-11'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address</td>
+<td>null</td>
+<td>授权的账户地址</td>
+</tr>
+<tr>
+<td>sign</td>
+<td>null</td>
+<td>授权的签名对象</td>
+</tr>
+</tbody></table>
+<h2 id='institud-getatn'>institud.getATN</h2>
+<p><code>institud.getATN(addr, callback)</code></p>
+
+<p>查询燃料余额。</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">gas</span> <span class="o">=</span> <span class="nx">account</span><span class="p">.</span><span class="nx">getATN</span><span class="p">(</span><span class="s2">"0x01"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">gas</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">gas</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>返回 <code>gas</code> 如下:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>BigNumber { s: 1, e: 1, c: [ 10 ] }    //10
+</code></pre><h3 id='3fe069830a-12'>参数表</h3>
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addr</td>
+<td>null</td>
+<td>查询的账户地址</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>null</td>
+<td>回调函数</td>
+</tr>
+</tbody></table>
